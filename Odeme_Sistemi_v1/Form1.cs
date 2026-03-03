@@ -10,10 +10,11 @@ namespace Odeme_Sistemi
     {
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent(); //program çalıştığında formun tasarımını oluşturur, butonları, label'leri, comboBox'ları ekranda gösterir.
 
 
-            odemeSecenekleri();
+            odemeSecenekleri(); 
+            // Form1’in constructor’ında odemeSecenekleri() metodunu çağırarak, form oluşturulurken ödeme seçeneklerinin comboBox’a eklenmesini sağlıyoruz.
 
         }
 
@@ -43,7 +44,7 @@ namespace Odeme_Sistemi
 
         private void btnode_Click(object sender, EventArgs e)
         {
-            //asd
+            
             if (!decimal.TryParse(txtTutar.Text, out decimal tutar) || tutar <= 0)
             //TryParse: Güvenli dönüştürmek içindir. Hatalı çeviri olduğunda sonuc false olur, program hata vermez.
             //Convert kullansaydık, hata mesajı için try-catch yapısı gerekecekti.
@@ -63,16 +64,16 @@ namespace Odeme_Sistemi
 
             //rakam ile: int odemeTipi = cmbOdemeTipi.SelectedIndex; // 0: Kredi Kartı, 1: Havale
 
-            // KÖTÜ: Tüm iş tek yerde, if-else uzar gider
+          
             if (secim == "Kredi Kartı") //rakam ile yapsaydık: if (odemeTipi == 0)
             {
                 decimal sonTutar = tutar + (tutar * 0.05m); // %5 komisyon ekleyelim. m: decimal olduğunu belirtir. parasal işlemlerde decimal kullanmak hata riskini azaltır.
-                lblSonuc.Text = $"Nakit ödeme alındı. Tutar: {sonTutar:0.00} TL"; //:0.00 → tutarı 2 ondalık basamakla gösterir.
+                lblSonuc.Text = $"Kredi Kartı ile ödeme alındı. Tutar: {sonTutar:0.00} TL"; //:0.00 → tutarı 2 ondalık basamakla gösterir.
             }
             else if (secim == "Havale/EFT")  //rakam ile yapsaydık: if (odemeTipi == 1)
             {
                 decimal sonTutar = tutar - (tutar * 0.10m); // %10 indirim yapalım. Havale/EFT genellikle daha ucuz olur, bu yüzden indirim ekledik.
-                lblSonuc.Text = $"Kredi Kartı ile ödeme alındı. Tutar: {sonTutar:0.00} TL";
+                lblSonuc.Text = $"Havale ile ödeme alındı. Tutar: {sonTutar:0.00} TL";
             }
             //Nakit Ödeme yöntemini siz ekleyiniz.
             else
